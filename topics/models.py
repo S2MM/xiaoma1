@@ -9,17 +9,18 @@ class Topic(models.Model):
     pub_date = models.DateTimeField('date published')
 
     def __str__(self):
-        return self.topic_title
+        return self.title
 
 class Reply(models.Model):
     topic = models.ForeignKey(Topic, on_delete=models.CASCADE)
-    reply_content = models.CharField(max_length=200)
+    content = models.CharField(max_length=200)
     votes = models.IntegerField(default=0)
+    pub_date = models.DateTimeField(default=timezone.now())
 
     def was_published_recently(self):
         return self.pub_date >= timezone.now() - datetime.timedelta(days=1)
 
     def __str__(self):
-        return self.reply_content
+        return self.content
 
 

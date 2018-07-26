@@ -1,0 +1,16 @@
+<h1> {{ topic.title }} </h1>
+<p> {{ topic.content }} </p>
+
+<form action="{% url 'topics:reply' topic.id %}" method="POST">
+    
+    {% csrf_token %}
+    <textarea name="reply_content"></textarea>
+   
+    <input type="submit" value="提交" />
+</form>
+
+<ul>
+    {% for reply in topic.reply_set.all %}
+        <li>{{ reply.content }}</li>
+    {% endfor %}
+</ul>
