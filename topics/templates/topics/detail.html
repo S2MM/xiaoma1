@@ -9,8 +9,13 @@
     <input type="submit" value="提交" />
 </form>
 
-<ul>
+<form action="{% url 'topics:r_vote' %}" method="POST">
+    {% csrf_token %}
     {% for reply in topic.reply_set.all %}
-        <li>{{ reply.content }}</li>
+        <input type="radio" name="reply_id" id="reply{{ forloop.counter }}" value="{{ reply.id }}" />
+        <label for="reply{{ forloop.counter }}">
+            {{ reply.content }} &nbsp;&nbsp;&nbsp;&nbsp; <span style="color:deeppink;">{{ reply.votes }}</span> 
+        </label><br />
     {% endfor %}
-</ul>
+    <input type="submit" value="投票" />
+    </form>
