@@ -8,6 +8,10 @@ class Topic(models.Model):
     content = models.CharField(max_length=500)
     pub_date = models.DateTimeField('date published')
 
+    def was_published_recently(self):
+        now = timezone.now()
+        return now - datetime.timedelta(days=1) <= self.pub_date <= now
+
     def __str__(self):
         return self.title
 
@@ -18,7 +22,8 @@ class Reply(models.Model):
     pub_date = models.DateTimeField(default=timezone.now())
 
     def was_published_recently(self):
-        return self.pub_date >= timezone.now() - datetime.timedelta(days=1)
+        now = timezone.now()
+        return now - datetime.timedelta(days=1) <= self.pub_date <= now
 
     def __str__(self):
         return self.content

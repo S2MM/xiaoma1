@@ -1,0 +1,61 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="{% static 'common/css/bootstrap.min.css' %}" />
+    <title>{% block title %}{{ SITE_TITLE }}{% endblock %}</title>
+</head>
+
+<body>
+    <div id="sidebar">
+        {% block topbar %}
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+            <a class="navbar-brand" href="#">{{ SITE_TITLE }}</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainNav">
+                    <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="mainNav">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">主页</a
+                    </li>
+                </ul>
+
+               
+                {% if user.is_authenticated %}
+                <ul class="nav-bar ">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="userNavDropDown" role="button" data-toggle="dropdown">
+                            {{ user.username }}
+                        </a>    
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="#">资料</a>
+                            <a class="dropdown-item" href="#">我的skr</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="{% url 'accounts:signout' %}">退出登录</a>
+                        </div>
+                    </li>
+                </ul>
+                {% else %}
+                <div class="btn-toolbar" role="toolbar">
+                    <div class="btn-group mr-2" role="group">
+                        <a href="#" class="btn btn-primary mr-1" role="button">登录</a>
+                        <a href="#" class="btn btn-primary">注册</a>
+                    </div>
+                </div>
+                {% endif %}
+                
+            </div>
+          </nav>
+        {% endblock %}
+    </div>
+
+    <div class="container-fluid" id="content">
+        {% block content %}{% endblock %}
+    </div>
+    <script src="{% static 'common/js/jquery-3.3.1.min.js' %}"></script>
+    <script src="{% static 'common/js/bootstrap.bundle.min.js' %}"></script>
+</body>
+</html>

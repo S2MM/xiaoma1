@@ -1,21 +1,23 @@
-<h1> {{ topic.title }} </h1>
-<p> {{ topic.content }} </p>
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="{% static common/css/bootstrap.min.css %}" />
+    <title>{% block title %}My amazing site{% endblock %}</title>
+</head>
 
-<form action="{% url 'topics:reply' topic.id %}" method="POST">
-    
-    {% csrf_token %}
-    <textarea name="reply_content"></textarea>
-   
-    <input type="submit" value="提交" />
-</form>
+<body>
+    <div id="sidebar">
+        {% block sidebar %}
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/blog/">Blog</a></li>
+        </ul>
+        {% endblock %}
+    </div>
 
-<form action="{% url 'topics:r_vote' %}" method="POST">
-    {% csrf_token %}
-    {% for reply in topic.reply_set.all %}
-        <input type="radio" name="reply_id" id="reply{{ forloop.counter }}" value="{{ reply.id }}" />
-        <label for="reply{{ forloop.counter }}">
-            {{ reply.content }} &nbsp;&nbsp;&nbsp;&nbsp; <span style="color:deeppink;">{{ reply.votes }}</span> 
-        </label><br />
-    {% endfor %}
-    <input type="submit" value="投票" />
-    </form>
+    <div id="content">
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>

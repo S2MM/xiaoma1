@@ -1,7 +1,7 @@
-{% if latest_topic_list %}
-    <ul>
-        {% for topic in latest_topic_list %}
-            <li><a href="{% url 'topics:detail' topic.id %}"> {{ topic.title }} </a></li>
-        {% endfor %}
-    </ul>
-{% endif %}
+{% extends "common/base.html" %}
+
+
+
+{% block content %}
+ 成功了！好使！
+{% endblock %}

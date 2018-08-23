@@ -1,16 +1,21 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
+from django.utils import timezone
 from django.urls import reverse
 from django.views import generic
 
 from .models import Topic, Reply
 
 class IndexView(generic.ListView):
+  
     template_name = 'topics/index.html'
     context_object_name = 'latest_topic_list'
 
     def get_queryset(self):
-        return Topic.objects.order_by('-pub_date')[:5]
+        """
+        返回最新的5条topic(未来的topic将被排除)
+        """
+        return Topic.objects.filter(pub_date__lte=timezone.now()).order_by('-pub_date')[:5]
 '''
     latest_topic_list = Topic.objects.order_by('-pub_date')[:5]
     context = { 'latest_topic_list': latest_topic_list }
