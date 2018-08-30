@@ -34,6 +34,8 @@ SITE_SETTINGS = {
     'SITE_TITLE': '小马的天',
 }
 
+#Auth Model
+AUTH_USER_MODEL = 'accounts.user'
 
 # Application definition
 
@@ -143,3 +145,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+]
