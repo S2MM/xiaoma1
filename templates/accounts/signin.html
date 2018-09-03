@@ -6,7 +6,12 @@
             <h5 class="card-header">登录</h5>
         
             <div class="card-body">
-                <form action="{% url 'accounts:signin' %}" method="POST">
+                {% if form.errors%}
+                    <div class="alert alert-danger " role="alert">
+                         登录失败，请检查用户名或是密码
+                    </div>
+                {% endif %}
+                <form action="{% url 'accounts:signin' %}" method="POST" novalidate>
                     {% csrf_token %}
                     {% include "common/baseform.html" with form=form %} 
                   

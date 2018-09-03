@@ -15,9 +15,21 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf.urls import url
+
+from django.shortcuts import redirect
+
+'''
+    测试用 gotohome 路由方法
+'''
+def gotohome(request):
+    return redirect('/topics')
 
 urlpatterns = [
+    path('', gotohome),
     path('topics/', include('topics.urls')),
     path('admin/', admin.site.urls),
     path('accounts/', include('accounts.urls')),
+    url(r'^tinymce/', include('tinymce.urls')),
 ]
+

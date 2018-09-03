@@ -38,7 +38,7 @@ class User(AbstractUser):
     email = models.EmailField('电子邮箱', max_length=255, unique=True)
      
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['username', 'password']
+    REQUIRED_FIELDS = ['username']
 
     objects = UserManager()
 

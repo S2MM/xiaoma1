@@ -3,9 +3,11 @@ import datetime
 from django.db import models
 from django.utils import timezone
 
+from tinymce import HTMLField
+
 class Topic(models.Model):
     title = models.CharField(max_length=50)
-    content = models.CharField(max_length=500)
+    content = HTMLField('话题内容')
     pub_date = models.DateTimeField('date published')
 
     def was_published_recently(self):
